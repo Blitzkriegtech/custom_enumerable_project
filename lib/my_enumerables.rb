@@ -49,8 +49,10 @@ module Enumerable
     end
   end
 
-  def my_inject(initial = nil)
+  def my_inject(initial = nil, &block)
+    raise ArgumentError, 'Block required' unless block_given? # add raise to mimic #reduce when block is missing
     if initial.nil?
+      raise ArgumentError, 'Empty array without initial value' if empty?
         accumulator = self[0]
         start_index = 1
     else
